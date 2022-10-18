@@ -38,20 +38,34 @@ CONTRIBUTERS:
 
 219099588 Billy Liseho Mafenyeho
 
-222127422 Tatenda Sithole
+
+APPLICATIONS THAT WERE USED:
+
+Visual Studio Code
+
+Lucidchart
+
+Microsoft Teams 
+
+Watsapp
+
+Microsoft word/ Note pad
+
+Github
 
 
+FUNCTIONS AND DESCRIPTION:
 
-FUNCTIONS AND DESCRIPTION
+Add_track: allows the user to add a track to the playlist
 
-Add_track:
+Create_playlist: allows the user to create a new playlist
 
-Create_playlist:
+Play_track: allows the user to play a track on the playlist
 
-Play_track:
+Remove_track: allows a user to remove/delete a from the playlist
 
-Remove_track:
+Search_playlist: allows the user to search for a track in the playlist
 
-Search_playlist:
+Repeat_track: allows the user to repeat a track
 
 
