@@ -16,6 +16,8 @@ track
 Using ideas from class, design an algorithm to implement the functionalities described in the project 
 summary. As far as possible, design and specify different modules/functions that make up the application.
 
+PLEASE NOTE: All contributers are new to Github, most of the work, sharing of data and discussions took place on Watsapp and Ms Teams, and what was generated was later added to Github.
+
 CONTRIBUTERS:
 
 216066182 Franco Beukes
