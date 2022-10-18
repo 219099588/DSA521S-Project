@@ -12,7 +12,7 @@ initialize search function
 
 initialize add/remove function 
 
-
+//play a song
 
 play music player 
 
