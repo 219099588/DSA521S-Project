@@ -1,6 +1,7 @@
 # DSA521S-Project
 This is a DSA521S Group Assignment Project.
 You have to create a music player.
+
 Project summary
 A Namibian music start-up is looking for an efficient music player algorithm for a mobile application. Suppose 
 you have 100 tracks on your list. The playlist works on the concept of linked list. Tracks are played one by 
