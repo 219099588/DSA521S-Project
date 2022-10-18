@@ -39,16 +39,16 @@ CONTRIBUTERS:
 219099588 Billy Liseho Mafenyeho
 
 
-FUNCTIONS
+FUNCTIONS AND DESCRIPTION
 
-Add track
+Add_track:
 
-Create_playlist
+Create_playlist:
 
-Play_track
+Play_track:
 
-Remove_track
+Remove_track:
 
-Search_playlist
+Search_playlist:
 
 
