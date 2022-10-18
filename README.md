@@ -2,7 +2,7 @@
 This is a DSA521S Group Assignment Project.
 You have to create a music player.
 
-Project summary
+PROJECT SUMMERY 
 
 A Namibian music start-up is looking for an efficient music player algorithm for a mobile application. Suppose 
 you have 100 tracks on your list. The playlist works on the concept of linked list. Tracks are played one by 
@@ -16,8 +16,16 @@ track
 Using ideas from class, design an algorithm to implement the functionalities described in the project 
 summary. As far as possible, design and specify different modules/functions that make up the application.
 
+CONTRIBUTERS:
+
 216066182 Franco Beukes
+
 222010436 Muhuuaije Kandanga
+
 211102970 Christiaan Rittmann
+
 201047039 TJ Tjirimuje
+
 222003596 Concessa Mathilde Roos
+
+219130485 Baudusseau Booysen
