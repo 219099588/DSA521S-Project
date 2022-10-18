@@ -41,15 +41,15 @@ CONTRIBUTERS:
 
 APPLICATIONS THAT WERE USED:
 
-Visual Studio Code
+MS Visual Studio Code
 
 Lucidchart
 
 Microsoft Teams 
 
-Watsapp
+Whatsapp
 
-Microsoft word/ Note pad
+Microsoft Word/ Notepad
 
 Github
 
