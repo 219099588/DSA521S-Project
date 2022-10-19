@@ -66,5 +66,19 @@ public class Playlist {
            current = current.getPrev();
        }
    }
-   
+   //set the Background color
+   public void backGroundColor(){
+      Console.BackgroundColor = ConsoleColor.Burgundy;
+      
+   //display current background color
+      Console.WriteLine(Console.BackgroundColor);
+      }
+    //set the Foreground color
+    public void forGroundColor(){
+      Console.ForegroundColor = ConsoleColor.White;
+      
+     //display current foreground color
+        Console.WriteLine(Console.ForegroundColor);
+      }
+   }
 }
