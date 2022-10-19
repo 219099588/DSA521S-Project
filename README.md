@@ -62,7 +62,7 @@ Create_playlist: allows the user to create a new playlist
 
 Play_track: allows the user to play a track on the playlist
 
-Remove_track: allows a user to remove/delete a from the playlist
+Remove_track: allows a user to remove/delete from the playlist
 
 Search_playlist: allows the user to search for a track in the playlist
 
