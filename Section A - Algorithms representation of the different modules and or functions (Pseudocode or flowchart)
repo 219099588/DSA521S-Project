@@ -60,6 +60,19 @@ play music player
         play_audio(current_track.data)
 
     end function
+    
+    //function to repeat a track
+    
+    function repeat_track(linked_list, track_number)
+    current_track := linked_list.head
+    for i := 0 to track_number-1 do
+        current_track := current_track.next
+    end for
+        while repeatButton isSelected
+        play_audio(current_track.data)
+        end while
+    end function
+
 
         function add_track(linked_list, track_number)
 
