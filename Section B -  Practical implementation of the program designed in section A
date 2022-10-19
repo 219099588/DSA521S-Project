@@ -1,71 +1,207 @@
+import java.util.Scanner;
+
 public class Playlist {
-   
-   private Track head;
-   private Track tail;
-   
-   public Playlist() {
-       head = null;
-       tail = null;
-   }
-   
-   //add track to playlist
-   public void addTrack(Track track) {
-       if(head == null) {
-           head = track;
-           tail = track;
-       } else {
-           tail.setNext(track);
-           track.setPrev(tail);
-           tail = track;
-       }
-   }
-   
-   //remove track from playlist
-   public void removeTrack(Track track) {
-       if(head == tail) {
-           head = null;
-           tail = null;
-       } else if(track == head) {
-           head = head.getNext();
-           head.setPrev(null);
-       } else if(track == tail) {
-           tail = tail.getPrev();
-           tail.setNext(null);
-       } else {
-           track.getPrev().setNext(track.getNext());
-           track.getNext().setPrev(track.getPrev());
-       }
-   }
-   
-   //search playlist for track
-   public Track search(String name) {
-       Track current = head;
-       while(current != null) {
-           if(current.getName().equals(name)) {
-               return current;
+
+   private static Scanner scanner = new Scanner(System.in);
+
+   private static Playlist playlist = new Playlist();
+   private static Track firstTrack;
+   private static Track lastTrack;
+
+   public static void main(String[] args) {
+       System.out.println("Enter 'help' to get list of available commands.");
+       String input = scanner.nextLine();
+       while (!input.equals("exit")) {
+           if (input.equals("help")) {
+               help();
+           } else if (input.equals("create")) {
+               create();
+           } else if (input.equals("add")) {
+               add();
+           } else if (input.equals("remove")) {
+               remove();
+           } else if (input.equals("print")) {
+               print();
+           } else if (input.equals("play")) {
+               play();
+           } else if (input.equals("stop")) {
+               stop();
+           } else {
+               System.out.println("Unknown command.");
            }
-           current = current.getNext();
+           input = scanner.nextLine();
        }
-       return null;
+       System.out.println("Bye!");
+       scanner.close();
    }
-   
-   //play playlist
-   public void play() {
-       Track current = head;
-       while(current != null) {
-           current.play();
-           current = current.getNext();
+
+   private static void help() {
+       System.out.println("List of available commands:");
+       System.out.println("create - create an empty playlist");
+       System.out.println("add - add a track to the playlist");
+       System.out.println("remove - remove a track from the playlist");
+       System.out.println("print - print tracks in the playlist");
+       System.out.println("play - play the playlist");
+       System.out.println("stop - stop playing the playlist");
+       System.out.println("exit - exit the program");
+   }
+
+   private static void create() {
+
+       playlist = new Playlist();
+       firstTrack = null;
+       lastTrack = null;
+
+       System.out.println("Empty playlist created.");
+   }
+
+   private static void add() {
+
+       System.out.println("Enter track title:");
+       String title = scanner.nextLine();
+
+       System.out.println("Enter track duration in seconds:");
+       int duration = scanner.nextInt();
+       scanner.nextLine();
+
+       Track track = new Track(title, duration);
+
+       if (firstTrack == null) {
+           firstTrack = track;
+           lastTrack = track;
+       } else {
+           lastTrack.setNextTrack(track);
+           track.setPreviousTrack(lastTrack);
+           lastTrack = track;
+       }
+
+       System.out.println("Track added.");
+   }
+
+   private static void remove() {
+
+       System.out.println("Enter track number:");
+       int trackNumber = scanner.nextInt();
+       scanner.nextLine();
+
+       Track currentTrack = firstTrack;
+       int currentTrackNumber = 1;
+
+       while (currentTrackNumber < trackNumber) {
+           currentTrack = currentTrack.getNextTrack();
+           currentTrackNumber++;
+       }
+
+       if (currentTrack == firstTrack) {
+           if (firstTrack == lastTrack) {
+               firstTrack = null;
+               lastTrack = null;
+           } else {
+               firstTrack = firstTrack.getNextTrack();
+               firstTrack.setPreviousTrack(null);
+           }
+       } else if (currentTrack == lastTrack) {
+           lastTrack = lastTrack.getPreviousTrack();
+           lastTrack.setNextTrack(null);
+       } else {
+           currentTrack.getPreviousTrack().setNextTrack(currentTrack.getNextTrack());
+           currentTrack.getNextTrack().setPreviousTrack(currentTrack.getPreviousTrack());
+       }
+
+       System.out.println("Track removed.");
+   }
+
+   private static void print() {
+
+       Track currentTrack = firstTrack;
+       int currentTrackNumber = 1;
+
+       System.out.println("Playlist:");
+       while (currentTrack != null) {
+           System.out.println(currentTrackNumber + ". " + currentTrack);
+           currentTrack = currentTrack.getNextTrack();
+           currentTrackNumber++;
        }
    }
-   
-   //play playlist in reverse
-   public void playReverse() {
-       Track current = tail;
-       while(current != null) {
-           current.play();
-           current = current.getPrev();
+
+   private static void play() {
+
+       Track currentTrack = firstTrack;
+       int currentTrackNumber = 1;
+
+       System.out.println("Playing playlist:");
+       while (currentTrack != null) {
+           System.out.println("Now playing: " + currentTrack);
+           currentTrack = currentTrack.getNextTrack();
+           currentTrackNumber++;
+           try {
+               Thread.sleep(currentTrack.getDuration() * 1000);
+           } catch (InterruptedException e) {
+               e.printStackTrace();
+           }
        }
    }
+
+   private static void stop() {
+
+       System.out.println("Stopping playlist.");
+   }
+}
+
+class Track {
+
+   private String title;
+   private int duration;
+
+   private Track nextTrack;
+   private Track previousTrack;
+
+   public Track(String title, int duration) {
+       this.title = title;
+       this.duration = duration;
+   }
+
+   public String getTitle() {
+       return title;
+   }
+
+   public void setTitle(String title) {
+       this.title = title;
+   }
+
+   public int getDuration() {
+       return duration;
+   }
+
+   public void setDuration(int duration) {
+       this.duration = duration;
+   }
+
+   public Track getNextTrack() {
+       return nextTrack;
+   }
+
+   public void setNextTrack(Track nextTrack) {
+       this.nextTrack = nextTrack;
+   }
+
+   public Track getPreviousTrack() {
+       return previousTrack;
+   }
+
+   public void setPreviousTrack(Track previousTrack) {
+       this.previousTrack = previousTrack;
+   }
+
+   @Override
+   public String toString() {
+       return "Track{" +
+               "title='" + title + '\'' +
+               ", duration=" + duration +
+               '}';
+   }
+}
+ 
    //set the Background color
    public void backGroundColor(){
       Console.BackgroundColor = ConsoleColor.Burgundy;
