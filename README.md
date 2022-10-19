@@ -66,7 +66,7 @@ Play_track: allows the user to play a track on the playlist
 
 Remove_track: allows a user to remove/delete from the playlist
 
-Search_playlist: allows the user to search for a track in the playlist
+Search_track: allows the user to search for a track in the playlist
 
 Repeat_track: allows the user to repeat a track
 
