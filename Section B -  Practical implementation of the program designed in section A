@@ -1,204 +1,418 @@
-import java.util.Scanner;
+========================================================================================================================================================
+Form1.cs
+==========================================================================================================================================================
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-public class Playlist {
+namespace MusicPlayer
+{
+    public partial class Form1 : Form
+    {
+        Queue<string> q = new Queue<string>();
+        string[] Musics = new string[1000];
+        int cont;
+        string a;
 
-   private static Scanner scanner = new Scanner(System.in);
 
-   private static Playlist playlist = new Playlist();
-   private static Track firstTrack;
-   private static Track lastTrack;
+        public Form1()
+        {
+            InitializeComponent();
+        }
 
-   public static void main(String[] args) {
-       System.out.println("Enter 'help' to get list of available commands.");
-       String input = scanner.nextLine();
-       while (!input.equals("exit")) {
-           if (input.equals("help")) {
-               help();
-           } else if (input.equals("create")) {
-               create();
-           } else if (input.equals("add")) {
-               add();
-           } else if (input.equals("remove")) {
-               remove();
-           } else if (input.equals("print")) {
-               print();
-           } else if (input.equals("play")) {
-               play();
-           } else if (input.equals("stop")) {
-               stop();
-           } else {
-               System.out.println("Unknown command.");
-           }
-           input = scanner.nextLine();
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try {
+                Player.URL = Musics[Ltb_Musics.SelectedIndex];
+                timer1.Start();
+            }
+          
+
+            catch (System.IndexOutOfRangeException) {
+
+                MessageBox.Show("Select a Song", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void stopbtn_Click(object sender, EventArgs e)
+        {
+            Player.Ctlcontrols.stop();
+        }
+
+        private void pausebtn_Click(object sender, EventArgs e)
+        {
+            Player.Ctlcontrols.pause();
+
+        }
+
+        private void resumebtn_Click(object sender, EventArgs e)
+        {
+            Player.Ctlcontrols.play();
+
+        }
+
+        private void addbtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog open = new OpenFileDialog();
+            open.Multiselect = true;
+
+            if (open.ShowDialog() == DialogResult.OK) 
+            {
+                for (int i = 0; i < open.FileNames.LongLength; i++)
+                {
+                    if (Ltb_Musics.Items.Contains(open.FileNames.GetValue(i)) == false)
+                    {
+                        var r = open.SafeFileNames.GetValue(i);
+                        a = Convert.ToString(r);
+                        q.Enqueue(a);
+                        Musics[cont] = open.FileNames.GetValue(i).ToString();
+                        cont += 1;
+                       
+                    }
+                }
+                Ltb_Musics.Items.Clear();
+                foreach (string id in q)
+                {
+                    Ltb_Musics.Items.Add(id);
+                }
+
+                if (Ltb_Musics.SelectedIndex < 0)
+                {
+                    Ltb_Musics.SetSelected(0, true);
+                     //MessageBox.Show("Song Successfully Added", "Test Case 1", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+          
+        }
+
+        private void Ltb_Musics_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fastforwardbtn_Click(object sender, EventArgs e)
+        {
+            Player.Ctlcontrols.fastForward();
+          //  MessageBox.Show("Song Successfully Added", "Test Case 1", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+
+        private void TimerTick_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            Player.settings.volume = volumeScroll.Value;
+
+        }
+
+        private void previousbtn_Click(object sender, EventArgs e)
+        {
+            if (Ltb_Musics.SelectedIndex != 0) {
+
+                Ltb_Musics.SetSelected(Ltb_Musics.SelectedIndex - 1, true);
+                Player.URL = Musics[Ltb_Musics.SelectedIndex];
+            }
+            else
+            {
+                Ltb_Musics.SelectedIndex = Ltb_Musics.Items.Count-1;
+                Player.URL = Musics[Ltb_Musics.SelectedIndex];
+                timer1.Start();
+            }
+        }
+
+        private void nextbtn_Click(object sender, EventArgs e)
+        {     
+            if (Ltb_Musics.SelectedIndex != Ltb_Musics.Items.Count - 1)
+            {
+                Ltb_Musics.SetSelected(Ltb_Musics.SelectedIndex + 1, true);
+                    Player.URL = Musics[Ltb_Musics.SelectedIndex];
+                    timer1.Start();                
+            }
+            else 
+            {
+                Ltb_Musics.SelectedIndex = 0;
+                Player.URL = Musics[Ltb_Musics.SelectedIndex];
+                timer1.Start();
+            }
+
+
+
+        }
+
+        private void startbtn_Click(object sender, EventArgs e)
+        {
+            Ltb_Musics.SetSelected(0, true);
+            Player.URL = Musics[Ltb_Musics.SelectedIndex];
+         //   MessageBox.Show("Song Successfully Added", "Test Case 1", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void endbtn_Click(object sender, EventArgs e)
+        {
+            Ltb_Musics.SetSelected(Ltb_Musics.Items.Count - 1, true);
+            Player.URL = Musics[Ltb_Musics.SelectedIndex];
+        }
+
+        private void lblduration_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Timer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbl_duration_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Player_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (TimerTick.Checked == true && lbltime.Text != "" && Convert.ToInt32(lbltime.Text.Replace(":", "")) 
+                == Convert.ToInt32(lblduration.Text.Replace(":", "")) - 2)
+            {
+                Random random = new Random();
+                Ltb_Musics.SetSelected(random.Next(Ltb_Musics.Items.Count), true);
+                Player.URL = Musics[Ltb_Musics.SelectedIndex];
+            }
+
+            lbltime.Text = Player.Ctlcontrols.currentPositionString;
+            lblduration.Text = Player.currentMedia.durationString;
+
+        }
+
+        private void shuffle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Player_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
+        {
+            String[] arr = q.ToArray();
+            if (e.newState == 8)
+            {             
+                BeginInvoke(new Action(() =>
+                {
+                    try
+                    {
+                        Ltb_Musics.SelectedIndex = Ltb_Musics.SelectedIndex + 1;
+                    }
+
+
+                catch (System.ArgumentOutOfRangeException)
+                    {
+
+                        Ltb_Musics.SelectedIndex = 0;
+                    }
+
+                  
+
+                    Player.URL = Musics[Ltb_Musics.SelectedIndex];
+                    timer1.Start();
+                }));
+            }
+        }
+
+        private void sortbtn_Click(object sender, EventArgs e)
+        {
+            String[] arr = q.ToArray();// Displaying the elements in array 
+            bool swap;
+            string temp; //change this too
+
+            do
+            {
+                swap = false;
+
+                for (int index = 0; index < (arr.Length - 1); index++)
+                {
+                    if (string.Compare(arr[index], arr[index + 1]) < 0) 
+                    {
+                        //swap
+                        temp = arr[index];
+                        arr[index] = arr[index + 1];
+                        arr[index + 1] = temp;
+                        swap = true;
+                    }
+                }
+            } while (swap == true);
+
+            Ltb_Musics.Items.Clear();
+
+            for (int t = 0; t < arr.Length; t++) {
+                Ltb_Musics.Items.Add(arr[t]);
+            }
+
+            if (Ltb_Musics.SelectedIndex < 0)
+            {
+                Ltb_Musics.SetSelected(0, true);
+            }
+        }
+
+        private void newbtn_Click(object sender, EventArgs e)
+        {
+            Ltb_Musics.Items.Clear();
+            q.Clear();
+
+
+            OpenFileDialog open = new OpenFileDialog();
+            open.Multiselect = true;
+
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+
+                for (int i = 0; i < open.FileNames.LongLength; i++)
+                {
+
+                    if (Ltb_Musics.Items.Contains(open.FileNames.GetValue(i)) == false)
+                    {
+                        var r = open.SafeFileNames.GetValue(i);
+                        a = Convert.ToString(r);
+                        q.Enqueue(a);
+
+                        Musics[cont] = open.FileNames.GetValue(i).ToString();
+
+                        cont += 1;
+
+                    }
+                }
+
+                foreach (string id in q)
+                {
+                    Ltb_Musics.Items.Add(id);
+                }
+
+                if (Ltb_Musics.SelectedIndex < 0)
+                {
+
+                    Ltb_Musics.SetSelected(0, true);
+
+                }
+            }
+
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            //     Ltb_Musics.Sorted = true;
+
+            String[] arr = q.ToArray();
+            // Displaying the elements in array 
+
+            bool swap;
+            string temp; //change this too
+
+            do
+            {
+                swap = false;
+
+                for (int index = 0; index < (arr.Length - 1); index++)
+                {
+                    if (string.Compare(arr[index + 1], arr[index]) < 0) 
+                    {
+                        //swap
+
+                        temp = arr[index + 1];
+                        arr[index + 1] = arr[index];
+                        arr[index] = temp;
+                        swap = true;
+                    }
+                }
+
+            } while (swap == true);
+
+            Ltb_Musics.Items.Clear();
+
+            for (int t = 0; t < arr.Length; t++)
+            {
+
+                Ltb_Musics.Items.Add(arr[t]);
+
+            }
+            /*
+
+            if (Ltb_Musics.SelectedIndex < 0)
+            {
+
+                Ltb_Musics.SetSelected(0, true);
+
+            }*/
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            String[] arr = q.ToArray();
+            String search = searchtxt.Text;
+
+            var items = (from a in arr
+                         where a.StartsWith(search)
+                         select a).ToArray<String>();
+
+            Ltb_Musics.Items.Clear();
+            Ltb_Musics.Items.AddRange(items);
+
+
+        
        }
-       System.out.println("Bye!");
-       scanner.close();
-   }
+    }
+}
+==================================================================================================================
+Program.cs 
+==================================================================================================================
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-   private static void help() {
-       System.out.println("List of available commands:");
-       System.out.println("create - create an empty playlist");
-       System.out.println("add - add a track to the playlist");
-       System.out.println("remove - remove a track from the playlist");
-       System.out.println("print - print tracks in the playlist");
-       System.out.println("play - play the playlist");
-       System.out.println("stop - stop playing the playlist");
-       System.out.println("exit - exit the program");
-   }
-
-   private static void create() {
-
-       playlist = new Playlist();
-       firstTrack = null;
-       lastTrack = null;
-
-       System.out.println("Empty playlist created.");
-   }
-
-   private static void add() {
-
-       System.out.println("Enter track title:");
-       String title = scanner.nextLine();
-
-       System.out.println("Enter track duration in seconds:");
-       int duration = scanner.nextInt();
-       scanner.nextLine();
-
-       Track track = new Track(title, duration);
-
-       if (firstTrack == null) {
-           firstTrack = track;
-           lastTrack = track;
-       } else {
-           lastTrack.setNextTrack(track);
-           track.setPreviousTrack(lastTrack);
-           lastTrack = track;
-       }
-
-       System.out.println("Track added.");
-   }
-
-   private static void remove() {
-
-       System.out.println("Enter track number:");
-       int trackNumber = scanner.nextInt();
-       scanner.nextLine();
-
-       Track currentTrack = firstTrack;
-       int currentTrackNumber = 1;
-
-       while (currentTrackNumber < trackNumber) {
-           currentTrack = currentTrack.getNextTrack();
-           currentTrackNumber++;
-       }
-
-       if (currentTrack == firstTrack) {
-           if (firstTrack == lastTrack) {
-               firstTrack = null;
-               lastTrack = null;
-           } else {
-               firstTrack = firstTrack.getNextTrack();
-               firstTrack.setPreviousTrack(null);
-           }
-       } else if (currentTrack == lastTrack) {
-           lastTrack = lastTrack.getPreviousTrack();
-           lastTrack.setNextTrack(null);
-       } else {
-           currentTrack.getPreviousTrack().setNextTrack(currentTrack.getNextTrack());
-           currentTrack.getNextTrack().setPreviousTrack(currentTrack.getPreviousTrack());
-       }
-
-       System.out.println("Track removed.");
-   }
-
-   private static void print() {
-
-       Track currentTrack = firstTrack;
-       int currentTrackNumber = 1;
-
-       System.out.println("Playlist:");
-       while (currentTrack != null) {
-           System.out.println(currentTrackNumber + ". " + currentTrack);
-           currentTrack = currentTrack.getNextTrack();
-           currentTrackNumber++;
-       }
-   }
-
-   private static void play() {
-
-       Track currentTrack = firstTrack;
-       int currentTrackNumber = 1;
-
-       System.out.println("Playing playlist:");
-       while (currentTrack != null) {
-           System.out.println("Now playing: " + currentTrack);
-           currentTrack = currentTrack.getNextTrack();
-           currentTrackNumber++;
-           try {
-               Thread.sleep(currentTrack.getDuration() * 1000);
-           } catch (InterruptedException e) {
-               e.printStackTrace();
-           }
-       }
-   }
-
-   private static void stop() {
-
-       System.out.println("Stopping playlist.");
-   }
+namespace MusicPlayer
+{
+    static class Program
+    {
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
+        }
+    }
 }
 
-class Track {
-
-   private String title;
-   private int duration;
-
-   private Track nextTrack;
-   private Track previousTrack;
-
-   public Track(String title, int duration) {
-       this.title = title;
-       this.duration = duration;
-   }
-
-   public String getTitle() {
-       return title;
-   }
-
-   public void setTitle(String title) {
-       this.title = title;
-   }
-
-   public int getDuration() {
-       return duration;
-   }
-
-   public void setDuration(int duration) {
-       this.duration = duration;
-   }
-
-   public Track getNextTrack() {
-       return nextTrack;
-   }
-
-   public void setNextTrack(Track nextTrack) {
-       this.nextTrack = nextTrack;
-   }
-
-   public Track getPreviousTrack() {
-       return previousTrack;
-   }
-
-   public void setPreviousTrack(Track previousTrack) {
-       this.previousTrack = previousTrack;
-   }
-
-   @Override
-   public String toString() {
-       return "Track{" +
-               "title='" + title + '\'' +
-               ", duration=" + duration +
-               '}';
-   }
-   }
-}
