@@ -131,7 +131,7 @@ play music player
 
     end function
     
-    //This function is used to search for specific track on the playlist
+    //This function is used to search for a specific track on the playlist
 
         function search_playlist(linked_list, track_number)
 
