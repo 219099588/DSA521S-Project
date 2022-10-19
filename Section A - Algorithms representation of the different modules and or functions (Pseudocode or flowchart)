@@ -30,7 +30,9 @@ play music player
 
     2. 
     algorithm  below;
-
+    
+   //This function creates a playlist
+   
     function create_playlist()
 
     tracks := 100
@@ -46,7 +48,9 @@ play music player
     return linked_list
 
     end function
-
+    
+    //This function play tracks
+    
     function play_track(linked_list, track_number)
 
         current_track := linked_list.head
@@ -73,6 +77,7 @@ play music player
         end while
     end function
 
+     //Function to add tracks to the playlist
 
         function add_track(linked_list, track_number)
 
@@ -97,6 +102,8 @@ play music player
     end if
 
     end function
+    
+    //This is a function to remove tracks from the playlist
 
     function remove_track(linked_list, track_number)
 
@@ -123,6 +130,8 @@ play music player
     end if
 
     end function
+    
+    //This function is used to search for specific track on the playlist
 
         function search_playlist(linked_list, track_number)
 
