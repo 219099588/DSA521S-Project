@@ -1,1 +1,70 @@
-
+public class Playlist {
+   
+   private Track head;
+   private Track tail;
+   
+   public Playlist() {
+       head = null;
+       tail = null;
+   }
+   
+   //add track to playlist
+   public void addTrack(Track track) {
+       if(head == null) {
+           head = track;
+           tail = track;
+       } else {
+           tail.setNext(track);
+           track.setPrev(tail);
+           tail = track;
+       }
+   }
+   
+   //remove track from playlist
+   public void removeTrack(Track track) {
+       if(head == tail) {
+           head = null;
+           tail = null;
+       } else if(track == head) {
+           head = head.getNext();
+           head.setPrev(null);
+       } else if(track == tail) {
+           tail = tail.getPrev();
+           tail.setNext(null);
+       } else {
+           track.getPrev().setNext(track.getNext());
+           track.getNext().setPrev(track.getPrev());
+       }
+   }
+   
+   //search playlist for track
+   public Track search(String name) {
+       Track current = head;
+       while(current != null) {
+           if(current.getName().equals(name)) {
+               return current;
+           }
+           current = current.getNext();
+       }
+       return null;
+   }
+   
+   //play playlist
+   public void play() {
+       Track current = head;
+       while(current != null) {
+           current.play();
+           current = current.getNext();
+       }
+   }
+   
+   //play playlist in reverse
+   public void playReverse() {
+       Track current = tail;
+       while(current != null) {
+           current.play();
+           current = current.getPrev();
+       }
+   }
+   
+}
